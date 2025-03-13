@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
@@ -12,11 +13,14 @@
 
         <br><br>
         <form action="/livres" method="POST">
-            <input type="text" name="titre" placeholder="Nom" required value="<%= livre.titre %>">
-            <input type="text" name="auteur" required placeholder="Age" value="<%= livre.auteur %>">
-            <input type="number" name="date" placeholder="date" required value="<%= livre.date %>">
+            <input type="text" name="titre" placeholder="Titre" required value="<%= livre.titre %>">
+            <input type="text" name="auteur" required placeholder="Auteur" value="<%= livre.auteur %>">
+            <input type="date" name="date" placeholder="date" required value="<%= livre.date ? new Date(livre.date).toISOString().split('T')[0] : '' %>">
             <input type="resume" name="resume" required placeholder="resume" value="<%= livre.resume %>">
             <button type="submit">Modifier le  Livre</button>
+            <script>
+                console.log("<%= livre.date %>")
+            </script>
 
         </form>
 

@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    align-items: center;
+    margin: 10% auto;
+    background-color: bisque;
+}
+
+body div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body form{
+    display: flex;
+    flex-direction: column;
+}
+
+
+body input {
+    width: 350px;
+    height: 30px;
+    margin: 10px 0;
+}
+li{
+    list-style-type: none;
+    display: flex;
+}
+a{
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.results {
+    display: inline-block;
+}
+
+.res{display: flex !important;
+    justify-content: space-around !important;
+    margin-top: 5vw;
+    width: 40%;
+}

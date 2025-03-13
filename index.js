@@ -23,23 +23,18 @@ mongoose
 
 
   app.post("/livres", async (req, res) => {
-    const newLivre = new Livre({ titre: req.body.titre, auteur: req.body.auteur, date: req.body.date, resume: req.body.resume, });
+    const newLivre = new Livre({ titre: req.body.titre, auteur: req.body.auteur, date: new Date(req.body.date), resume: req.body.resume, });
     try {
       await newLivre.save();
       res.redirect("/livres");
     } catch (error) {
-      res
-        .status(400)
-        .send("Erreur lors de l'ajout d'un livre! ," + error.message);
+      res.status(400).send("Erreur lors de l'ajout d'un livre! ," + error.message);
     }
   });
 
 
   app.get("/livres", async (req, res) => {
     try {
-    //     const livres = await Livre.find();
-    //   res.render("view_livre", {livres});
-
     let page = parseInt(req.query.page) || 1; // Page actuelle, par défaut 1
         let limit = 2; // Nombre de livres par page
         let skip = (page - 1) * limit; // Calcul de l'offset
@@ -52,8 +47,6 @@ mongoose
             currentPage: page, 
             totalPages: Math.ceil(totalLivres / limit) 
         });
-
-
     } catch (error) {
       res.status(500).send("Erreur lors de la récupération des livres");
     }
@@ -62,6 +55,11 @@ mongoose
   app.get("/livres/edit/:id", async (req, res) => {
     try {
         const livre = await Livre.findById(req.params.id);
+  if (livre.date instanceof Date) {
+    livre.date = livre.date.toISOString().split("T")[0]; // ✅ Convertir en YYYY-MM-DD
+}
+
+
       res.render("edit_livre", {livre});
     } catch (error) {
       console.log(error)
@@ -75,9 +73,7 @@ app.post("/livres/:id", async (req, res) => {
       await Livre.findByIdAndDelete(req.params.id);
       res.redirect("/livres");
     } catch (error) {
-      res
-        .status(500)
-        .send("Erreur lors de la suppression du livre: " + error.message);
+      res.status(500).send("Erreur lors de la suppression du livre: " + error.message);
     }
   });
   
