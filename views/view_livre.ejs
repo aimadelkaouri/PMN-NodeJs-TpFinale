@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+
+        <h1>Liste des Livres</h1>
+
+        <br><br>
+        <form action="/livres" method="POST">
+            <input type="text" name="titre" placeholder="Nom" required>
+            <input type="text" name="auteur" required placeholder="Age">
+            <input type="number" name="date" placeholder="date" required>
+            <input type="resume" name="resume" required placeholder="resume">
+            <button type="submit">Ajouter Livre</button>
+        </form>
+
+
+        <ul>
+            <% if (livres && livres.length > 0) { %>
+                <% livres.forEach(livre => { %>
+                    <li>
+                        <a href="/livres/edit/<%= livre._id %>">
+                            <%= livre.titre %> - <%= livre.auteur %>
+                        </a>
+                        <div>
+                            <form action="/livres/<%= livre._id %>" method="POST">
+                                <button type="submit">Supprimer</button>
+                            </form>
+        
+                        </div>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li>Aucun livre trouvé.</li>
+            <% } %>
+        </ul>
+        
+        <div>
+            <% if (currentPage > 1) { %>
+                <a href="/livres?page=<%= currentPage - 1 %>">Précédent</a>
+            <% } %>
+        
+            Page <%= currentPage %> sur <%= totalPages %>
+        
+            <% if (currentPage < totalPages) { %>
+                <a href="/livres?page=<%= currentPage + 1 %>">Suivant</a>
+            <% } %>
+        </div>
+        
+
+    </div>
+
+
+</body>
+</html>
