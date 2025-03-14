@@ -35,12 +35,12 @@ mongoose
 
   app.get("/livres", async (req, res) => {
     try {
-    let page = parseInt(req.query.page) || 1; // Page actuelle, par défaut 1
-        let limit = 2; // Nombre de livres par page
-        let skip = (page - 1) * limit; // Calcul de l'offset
+    let page = parseInt(req.query.page) || 1; 
+        let limit = 2; 
+        let skip = (page - 1) * limit; 
 
-        const livres = await Livre.find().skip(skip).limit(limit); // Récupérer les livres paginés
-        const totalLivres = await Livre.countDocuments(); // Nombre total de livres
+        const livres = await Livre.find().skip(skip).limit(limit); 
+        const totalLivres = await Livre.countDocuments(); 
 
         res.render("view_livre", { 
             livres, 
@@ -56,7 +56,7 @@ mongoose
     try {
         const livre = await Livre.findById(req.params.id);
   if (livre.date instanceof Date) {
-    livre.date = livre.date.toISOString().split("T")[0]; // ✅ Convertir en YYYY-MM-DD
+    livre.date = livre.date.toISOString().split("T")[0]; 
 }
 
 
